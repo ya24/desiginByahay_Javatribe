@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ya.javatribe.mapper.generator.CommunicationMeetingMapper" >
+  <resultMap id="BaseResultMap" type="cn.ya.javatribe.model.generator.CommunicationMeeting" >
+    <id column="meeting_id" property="meetingId" jdbcType="INTEGER" />
+    <result column="meeting_title" property="meetingTitle" jdbcType="VARCHAR" />
+    <result column="meeting_date" property="meetingDate" jdbcType="VARCHAR" />
+    <result column="meeting_address" property="meetingAddress" jdbcType="VARCHAR" />
+    <result column="meeting_picture" property="meetingPicture" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="editTime" property="edittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.ya.javatribe.model.generator.CommunicationMeeting" extends="BaseResultMap" >
+    <result column="meeting_theme" property="meetingTheme" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    meeting_id, meeting_title, meeting_date, meeting_address, meeting_picture, member_name, 
+    editTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    meeting_theme
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from communication_meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from communication_meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ya.javatribe.model.generator.CommunicationMeeting" >
+    insert into communication_meeting (meeting_id, meeting_title, meeting_date, 
+      meeting_address, meeting_picture, member_name, 
+      editTime, meeting_theme)
+    values (#{meetingId,jdbcType=INTEGER}, #{meetingTitle,jdbcType=VARCHAR}, #{meetingDate,jdbcType=VARCHAR}, 
+      #{meetingAddress,jdbcType=VARCHAR}, #{meetingPicture,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, 
+      #{edittime,jdbcType=TIMESTAMP}, #{meetingTheme,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ya.javatribe.model.generator.CommunicationMeeting" >
+    insert into communication_meeting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="meetingId != null" >
+        meeting_id,
+      </if>
+      <if test="meetingTitle != null" >
+        meeting_title,
+      </if>
+      <if test="meetingDate != null" >
+        meeting_date,
+      </if>
+      <if test="meetingAddress != null" >
+        meeting_address,
+      </if>
+      <if test="meetingPicture != null" >
+        meeting_picture,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="edittime != null" >
+        editTime,
+      </if>
+      <if test="meetingTheme != null" >
+        meeting_theme,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="meetingId != null" >
+        #{meetingId,jdbcType=INTEGER},
+      </if>
+      <if test="meetingTitle != null" >
+        #{meetingTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingDate != null" >
+        #{meetingDate,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingAddress != null" >
+        #{meetingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingPicture != null" >
+        #{meetingPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="edittime != null" >
+        #{edittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="meetingTheme != null" >
+        #{meetingTheme,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ya.javatribe.model.generator.CommunicationMeeting" >
+    update communication_meeting
+    <set >
+      <if test="meetingTitle != null" >
+        meeting_title = #{meetingTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingDate != null" >
+        meeting_date = #{meetingDate,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingAddress != null" >
+        meeting_address = #{meetingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingPicture != null" >
+        meeting_picture = #{meetingPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="edittime != null" >
+        editTime = #{edittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="meetingTheme != null" >
+        meeting_theme = #{meetingTheme,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.ya.javatribe.model.generator.CommunicationMeeting" >
+    update communication_meeting
+    set meeting_title = #{meetingTitle,jdbcType=VARCHAR},
+      meeting_date = #{meetingDate,jdbcType=VARCHAR},
+      meeting_address = #{meetingAddress,jdbcType=VARCHAR},
+      meeting_picture = #{meetingPicture,jdbcType=VARCHAR},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      editTime = #{edittime,jdbcType=TIMESTAMP},
+      meeting_theme = #{meetingTheme,jdbcType=LONGVARCHAR}
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ya.javatribe.model.generator.CommunicationMeeting" >
+    update communication_meeting
+    set meeting_title = #{meetingTitle,jdbcType=VARCHAR},
+      meeting_date = #{meetingDate,jdbcType=VARCHAR},
+      meeting_address = #{meetingAddress,jdbcType=VARCHAR},
+      meeting_picture = #{meetingPicture,jdbcType=VARCHAR},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      editTime = #{edittime,jdbcType=TIMESTAMP}
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+</mapper>

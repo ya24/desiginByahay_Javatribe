@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ya.javatribe.mapper.generator.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="cn.ya.javatribe.model.generator.Project" >
+    <id column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_introduction" property="projectIntroduction" jdbcType="VARCHAR" />
+    <result column="project_members" property="projectMembers" jdbcType="VARCHAR" />
+    <result column="project_result" property="projectResult" jdbcType="VARCHAR" />
+    <result column="project_date" property="projectDate" jdbcType="TIMESTAMP" />
+    <result column="project_type_id" property="projectTypeId" jdbcType="INTEGER" />
+    <result column="project_code" property="projectCode" jdbcType="VARCHAR" />
+    <result column="project_picture" property="projectPicture" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    project_id, project_name, project_introduction, project_members, project_result, 
+    project_date, project_type_id, project_code, project_picture
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ya.javatribe.model.generator.Project" >
+    insert into project (project_id, project_name, project_introduction, 
+      project_members, project_result, project_date, 
+      project_type_id, project_code, project_picture
+      )
+    values (#{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{projectIntroduction,jdbcType=VARCHAR}, 
+      #{projectMembers,jdbcType=VARCHAR}, #{projectResult,jdbcType=VARCHAR}, #{projectDate,jdbcType=TIMESTAMP}, 
+      #{projectTypeId,jdbcType=INTEGER}, #{projectCode,jdbcType=VARCHAR}, #{projectPicture,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ya.javatribe.model.generator.Project" >
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="projectIntroduction != null" >
+        project_introduction,
+      </if>
+      <if test="projectMembers != null" >
+        project_members,
+      </if>
+      <if test="projectResult != null" >
+        project_result,
+      </if>
+      <if test="projectDate != null" >
+        project_date,
+      </if>
+      <if test="projectTypeId != null" >
+        project_type_id,
+      </if>
+      <if test="projectCode != null" >
+        project_code,
+      </if>
+      <if test="projectPicture != null" >
+        project_picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectIntroduction != null" >
+        #{projectIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="projectMembers != null" >
+        #{projectMembers,jdbcType=VARCHAR},
+      </if>
+      <if test="projectResult != null" >
+        #{projectResult,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDate != null" >
+        #{projectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectTypeId != null" >
+        #{projectTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectCode != null" >
+        #{projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPicture != null" >
+        #{projectPicture,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ya.javatribe.model.generator.Project" >
+    update project
+    <set >
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectIntroduction != null" >
+        project_introduction = #{projectIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="projectMembers != null" >
+        project_members = #{projectMembers,jdbcType=VARCHAR},
+      </if>
+      <if test="projectResult != null" >
+        project_result = #{projectResult,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDate != null" >
+        project_date = #{projectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectTypeId != null" >
+        project_type_id = #{projectTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectCode != null" >
+        project_code = #{projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectPicture != null" >
+        project_picture = #{projectPicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ya.javatribe.model.generator.Project" >
+    update project
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      project_introduction = #{projectIntroduction,jdbcType=VARCHAR},
+      project_members = #{projectMembers,jdbcType=VARCHAR},
+      project_result = #{projectResult,jdbcType=VARCHAR},
+      project_date = #{projectDate,jdbcType=TIMESTAMP},
+      project_type_id = #{projectTypeId,jdbcType=INTEGER},
+      project_code = #{projectCode,jdbcType=VARCHAR},
+      project_picture = #{projectPicture,jdbcType=VARCHAR}
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+</mapper>

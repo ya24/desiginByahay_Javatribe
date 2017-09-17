@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ya.javatribe.mapper.admin.MemberManagerMapper" >
+  <resultMap id="BaseResultMap" type="cn.ya.javatribe.model.admin.MemberInfo" >
+    <id column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="member_password" property="memberPassword" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="short_phone_number" property="shortPhoneNumber" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="duty_id" property="dutyId" jdbcType="INTEGER" />
+    <result column="available" property="available" jdbcType="INTEGER" />
+    <result column="grade_name" property="gradeName" jdbcType="VARCHAR" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="duty_name" property="dutyName" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <!-- 正式成员查询(不涉及分页) -->
+  <select id="queryAllMembers" resultMap="BaseResultMap">
+    SELECT member_id, member_name, phone_number, short_phone_number, wechat, QQ, grade_name, group_name, role_name, duty_id
+    FROM team_members, grade, team_group, sys_role WHERE
+    grade.grade_id= team_members.grade_id AND team_group.group_id = team_members.group_id AND
+    sys_role.role_id = team_members.role_id AND team_members.role_id IN (1,2,3,4)
+  </select>
+
+  <!-- 考核人员查询(不涉及分页) -->
+  <select id="queryAllExamineMembers" resultMap="BaseResultMap">
+    SELECT member_id, member_name, phone_number, short_phone_number, wechat, QQ, grade_name, role_name
+    FROM team_members, grade, sys_role WHERE
+    grade.grade_id= team_members.grade_id  AND sys_role.role_id = team_members.role_id AND team_members.role_id = 5
+  </select>
+
+  <!-- 正式成员查询(涉及分页) -->
+  <select id="queryAllMembersByPage" resultMap="BaseResultMap" parameterType="cn.ya.javatribe.model.admin.Page">
+    SELECT member_id, member_name, phone_number, short_phone_number, wechat, QQ, grade_name, group_name, role_name, duty_id
+    FROM team_members, grade, team_group, sys_role WHERE
+    grade.grade_id= team_members.grade_id AND team_group.group_id = team_members.group_id AND
+    sys_role.role_id = team_members.role_id AND team_members.role_id IN (1,2,3,4) order by member_id  LIMIT #{index},#{pageSize}
+  </select>
+
+  <!-- 考核人员查询(涉及分页) -->
+  <select id="queryAllExamineMembersByPage" resultMap="BaseResultMap" parameterType="cn.ya.javatribe.model.admin.Page">
+    SELECT member_id, member_name, phone_number, short_phone_number, wechat, QQ, grade_name, role_name
+    FROM team_members, grade, sys_role WHERE
+    grade.grade_id= team_members.grade_id  AND sys_role.role_id = team_members.role_id AND team_members.role_id = 5
+    order by member_id LIMIT #{index},#{pageSize}
+  </select>
+
+  <!-- 查询正式成员总数 -->
+  <select id="countMembers" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM team_members WHERE team_members.role_id IN (1,2,3,4)
+  </select>
+
+  <!-- 查询考核人员总数 -->
+  <select id="countExamineMembers" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM team_members WHERE team_members.role_id = 5
+  </select>
+
+  <!-- 查询数据库现有的所有年级 -->
+  <select id="queryAllGrade" resultMap="cn.ya.javatribe.mapper.generator.GradeMapper.BaseResultMap">
+      SELECT * FROM grade
+  </select>
+
+  <!-- 查询数据库现有的所有组别 -->
+  <select id="queryAllTeamGroup" resultMap="cn.ya.javatribe.mapper.generator.TeamGroupMapper.BaseResultMap">
+      SELECT * FROM team_group
+  </select>
+
+  <!-- 查询数据库现有的所有角色 -->
+  <select id="queryAllRole" resultMap="cn.ya.javatribe.mapper.generator.RoleMapper.BaseResultMap">
+      SELECT * FROM sys_role
+  </select>
+
+  <!-- 查询数据库现有的所有职务 -->
+  <select id="queryAllDuty" resultMap="cn.ya.javatribe.mapper.generator.DutyMapper.BaseResultMap">
+      SELECT * FROM duty
+  </select>
+
+</mapper>

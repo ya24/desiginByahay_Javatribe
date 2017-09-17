@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ya.javatribe.mapper.admin.CommunicationShowMapper" >
+
+  <!--  查询交流会风采总记录数-->
+  <select id="countCommunicationShow" resultType="java.lang.Integer">
+    select count(*) from communication_meeting
+  </select>
+
+    <!--// 分页查询交流会风采-->
+  <select id="queryCommunicationShowByLimit" parameterType="cn.ya.javatribe.model.admin.Page"
+          resultMap="cn.ya.javatribe.mapper.generator.CommunicationMeetingMapper.ResultMapWithBLOBs">
+    select meeting_id, meeting_title, meeting_date, meeting_address, member_name
+    from communication_meeting order by editTime desc limit #{index}, #{pageSize}
+  </select>
+
+</mapper>

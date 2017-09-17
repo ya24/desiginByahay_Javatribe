@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ya.javatribe.mapper.generator.AttachfileMapper" >
+  <resultMap id="BaseResultMap" type="cn.ya.javatribe.model.generator.Attachfile" >
+    <id column="attachFile_id" property="attachfileId" jdbcType="VARCHAR" />
+    <result column="attachFile_name" property="attachfileName" jdbcType="VARCHAR" />
+    <result column="attachFile_path" property="attachfilePath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    attachFile_id, attachFile_name, attachFile_path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from attachfile
+    where attachFile_id = #{attachfileId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from attachfile
+    where attachFile_id = #{attachfileId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.ya.javatribe.model.generator.Attachfile" >
+    insert into attachfile (attachFile_id, attachFile_name, attachFile_path
+      )
+    values (#{attachfileId,jdbcType=VARCHAR}, #{attachfileName,jdbcType=VARCHAR}, #{attachfilePath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ya.javatribe.model.generator.Attachfile" >
+    insert into attachfile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attachfileId != null" >
+        attachFile_id,
+      </if>
+      <if test="attachfileName != null" >
+        attachFile_name,
+      </if>
+      <if test="attachfilePath != null" >
+        attachFile_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attachfileId != null" >
+        #{attachfileId,jdbcType=VARCHAR},
+      </if>
+      <if test="attachfileName != null" >
+        #{attachfileName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachfilePath != null" >
+        #{attachfilePath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ya.javatribe.model.generator.Attachfile" >
+    update attachfile
+    <set >
+      <if test="attachfileName != null" >
+        attachFile_name = #{attachfileName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachfilePath != null" >
+        attachFile_path = #{attachfilePath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where attachFile_id = #{attachfileId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ya.javatribe.model.generator.Attachfile" >
+    update attachfile
+    set attachFile_name = #{attachfileName,jdbcType=VARCHAR},
+      attachFile_path = #{attachfilePath,jdbcType=VARCHAR}
+    where attachFile_id = #{attachfileId,jdbcType=VARCHAR}
+  </update>
+</mapper>

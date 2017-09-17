@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ya.javatribe.mapper.generator.BluecupMapper" >
+  <resultMap id="BaseResultMap" type="cn.ya.javatribe.model.generator.Bluecup" >
+    <id column="bluecup_id" property="bluecupId" jdbcType="INTEGER" />
+    <result column="bluecup_type" property="bluecupType" jdbcType="VARCHAR" />
+    <result column="bluecup_time" property="bluecupTime" jdbcType="TIMESTAMP" />
+    <result column="bluecup_results" property="bluecupResults" jdbcType="VARCHAR" />
+    <result column="bluecup_results_path" property="bluecupResultsPath" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bluecup_id, bluecup_type, bluecup_time, bluecup_results, bluecup_results_path, member_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bluecup
+    where bluecup_id = #{bluecupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bluecup
+    where bluecup_id = #{bluecupId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ya.javatribe.model.generator.Bluecup" >
+    insert into bluecup (bluecup_id, bluecup_type, bluecup_time, 
+      bluecup_results, bluecup_results_path, member_id
+      )
+    values (#{bluecupId,jdbcType=INTEGER}, #{bluecupType,jdbcType=VARCHAR}, #{bluecupTime,jdbcType=TIMESTAMP}, 
+      #{bluecupResults,jdbcType=VARCHAR}, #{bluecupResultsPath,jdbcType=VARCHAR}, #{memberId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ya.javatribe.model.generator.Bluecup" >
+    insert into bluecup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bluecupId != null" >
+        bluecup_id,
+      </if>
+      <if test="bluecupType != null" >
+        bluecup_type,
+      </if>
+      <if test="bluecupTime != null" >
+        bluecup_time,
+      </if>
+      <if test="bluecupResults != null" >
+        bluecup_results,
+      </if>
+      <if test="bluecupResultsPath != null" >
+        bluecup_results_path,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bluecupId != null" >
+        #{bluecupId,jdbcType=INTEGER},
+      </if>
+      <if test="bluecupType != null" >
+        #{bluecupType,jdbcType=VARCHAR},
+      </if>
+      <if test="bluecupTime != null" >
+        #{bluecupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bluecupResults != null" >
+        #{bluecupResults,jdbcType=VARCHAR},
+      </if>
+      <if test="bluecupResultsPath != null" >
+        #{bluecupResultsPath,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ya.javatribe.model.generator.Bluecup" >
+    update bluecup
+    <set >
+      <if test="bluecupType != null" >
+        bluecup_type = #{bluecupType,jdbcType=VARCHAR},
+      </if>
+      <if test="bluecupTime != null" >
+        bluecup_time = #{bluecupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bluecupResults != null" >
+        bluecup_results = #{bluecupResults,jdbcType=VARCHAR},
+      </if>
+      <if test="bluecupResultsPath != null" >
+        bluecup_results_path = #{bluecupResultsPath,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bluecup_id = #{bluecupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ya.javatribe.model.generator.Bluecup" >
+    update bluecup
+    set bluecup_type = #{bluecupType,jdbcType=VARCHAR},
+      bluecup_time = #{bluecupTime,jdbcType=TIMESTAMP},
+      bluecup_results = #{bluecupResults,jdbcType=VARCHAR},
+      bluecup_results_path = #{bluecupResultsPath,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=INTEGER}
+    where bluecup_id = #{bluecupId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- web.xml中shiro的filter对应的bean-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!-- loginURL认证提交地址，如果没有认证将会请求此地址进行认证 -->
+        <property name="loginUrl" value="/login"/>
+        <!-- 认证成功统一跳转到first.action，建议不配置，shiro认证成功自动到上一个请求路径 -->
+        <property name="successUrl" value="/welcome"/>
+        <!-- 通过unauthorizedUrl指定没有权限操作时跳转页面-->
+        <property name="unauthorizedUrl" value="/refuse"/>
+        <!-- 自定义filter配置-->
+        <property name="filters">
+            <map>
+                <!-- 将自定义 的FormAuthenticationFilter注入shiroFilter中-->
+                <entry key="authc" value-ref="userFormAuthenticationFilter"/>
+            </map>
+        </property>
+        <!-- 过滤链定义-->
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 静态资源匿名访问 -->
+                / = anon
+                /static/** = anon
+                /index.jsp = anon
+                /verify = anon
+                /refuse.jsp = anon
+                /logout = logout
+                <!-- 所有url都必须认证通过才可以访问-->
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+    <!-- 安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"/>
+    </bean>
+
+    <!-- realm-->
+    <bean id="userRealm" class="cn.ya.javatribe.shiro.admin.UserRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+    </bean>
+
+    <!-- 凭证匹配器-->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"/>
+        <property name="hashIterations" value="1"/>
+    </bean>
+
+    <!-- 自定义form认证过虑器 -->
+    <!-- 基于Form表单的身份验证过滤器，不配置将也会注册此过虑器，表单中的用户账号、密码及loginurl将采用默认值，建议配置 -->
+    <bean id="userFormAuthenticationFilter" class="cn.ya.javatribe.shiro.admin.UserFormAuthenticationFilter">
+        <!-- 表单中账号的input名称 -->
+        <property name="usernameParam" value="username" />
+        <!-- 表单中密码的input名称 -->
+        <property name="passwordParam" value="password" />
+    </bean>
+
+</beans>
+
+
+
+
+
+

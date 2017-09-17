@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ya.javatribe.mapper.generator.ExamineWorkMapper" >
+  <resultMap id="BaseResultMap" type="cn.ya.javatribe.model.generator.ExamineWork" >
+    <id column="work_id" property="workId" jdbcType="INTEGER" />
+    <result column="work_path" property="workPath" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="work_time" property="workTime" jdbcType="TIMESTAMP" />
+    <result column="examine_id" property="examineId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    work_id, work_path, member_id, work_time, examine_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from examine_work
+    where work_id = #{workId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from examine_work
+    where work_id = #{workId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ya.javatribe.model.generator.ExamineWork" >
+    insert into examine_work (work_id, work_path, member_id, 
+      work_time, examine_id)
+    values (#{workId,jdbcType=INTEGER}, #{workPath,jdbcType=VARCHAR}, #{memberId,jdbcType=INTEGER}, 
+      #{workTime,jdbcType=TIMESTAMP}, #{examineId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ya.javatribe.model.generator.ExamineWork" >
+    insert into examine_work
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="workId != null" >
+        work_id,
+      </if>
+      <if test="workPath != null" >
+        work_path,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="workTime != null" >
+        work_time,
+      </if>
+      <if test="examineId != null" >
+        examine_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="workId != null" >
+        #{workId,jdbcType=INTEGER},
+      </if>
+      <if test="workPath != null" >
+        #{workPath,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examineId != null" >
+        #{examineId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ya.javatribe.model.generator.ExamineWork" >
+    update examine_work
+    <set >
+      <if test="workPath != null" >
+        work_path = #{workPath,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="workTime != null" >
+        work_time = #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examineId != null" >
+        examine_id = #{examineId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where work_id = #{workId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ya.javatribe.model.generator.ExamineWork" >
+    update examine_work
+    set work_path = #{workPath,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=INTEGER},
+      work_time = #{workTime,jdbcType=TIMESTAMP},
+      examine_id = #{examineId,jdbcType=INTEGER}
+    where work_id = #{workId,jdbcType=INTEGER}
+  </update>
+</mapper>

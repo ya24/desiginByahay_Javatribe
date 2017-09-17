@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ya.javatribe.mapper.generator.AfficheMapper" >
+  <resultMap id="BaseResultMap" type="cn.ya.javatribe.model.generator.Affiche" >
+    <id column="affiche_id" property="afficheId" jdbcType="INTEGER" />
+    <result column="affiche_title" property="afficheTitle" jdbcType="VARCHAR" />
+    <result column="public_time" property="publicTime" jdbcType="TIMESTAMP" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="attachFile_id" property="attachfileId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.ya.javatribe.model.generator.Affiche" extends="BaseResultMap" >
+    <result column="affiche_content" property="afficheContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    affiche_id, affiche_title, public_time, member_name, attachFile_id, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    affiche_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from affiche
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from affiche
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ya.javatribe.model.generator.Affiche" >
+    insert into affiche (affiche_id, affiche_title, public_time, 
+      member_name, attachFile_id, status, 
+      affiche_content)
+    values (#{afficheId,jdbcType=INTEGER}, #{afficheTitle,jdbcType=VARCHAR}, #{publicTime,jdbcType=TIMESTAMP}, 
+      #{memberName,jdbcType=VARCHAR}, #{attachfileId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{afficheContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ya.javatribe.model.generator.Affiche" >
+    insert into affiche
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="afficheId != null" >
+        affiche_id,
+      </if>
+      <if test="afficheTitle != null" >
+        affiche_title,
+      </if>
+      <if test="publicTime != null" >
+        public_time,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="attachfileId != null" >
+        attachFile_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="afficheContent != null" >
+        affiche_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="afficheId != null" >
+        #{afficheId,jdbcType=INTEGER},
+      </if>
+      <if test="afficheTitle != null" >
+        #{afficheTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publicTime != null" >
+        #{publicTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachfileId != null" >
+        #{attachfileId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="afficheContent != null" >
+        #{afficheContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ya.javatribe.model.generator.Affiche" >
+    update affiche
+    <set >
+      <if test="afficheTitle != null" >
+        affiche_title = #{afficheTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publicTime != null" >
+        public_time = #{publicTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachfileId != null" >
+        attachFile_id = #{attachfileId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="afficheContent != null" >
+        affiche_content = #{afficheContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.ya.javatribe.model.generator.Affiche" >
+    update affiche
+    set affiche_title = #{afficheTitle,jdbcType=VARCHAR},
+      public_time = #{publicTime,jdbcType=TIMESTAMP},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      attachFile_id = #{attachfileId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      affiche_content = #{afficheContent,jdbcType=LONGVARCHAR}
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ya.javatribe.model.generator.Affiche" >
+    update affiche
+    set affiche_title = #{afficheTitle,jdbcType=VARCHAR},
+      public_time = #{publicTime,jdbcType=TIMESTAMP},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      attachFile_id = #{attachfileId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where affiche_id = #{afficheId,jdbcType=INTEGER}
+  </update>
+</mapper>
